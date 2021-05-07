@@ -17,7 +17,7 @@ rule flexbar:
     shell:
         """flexbar -r {input.R1} -p {input.R2} \
         -a {input.adapters} --adapter-trim-end ANY \
-        -q TAIL -qf i1.5 -n 4 -m 25 \
+        -q TAIL -qf i1.5 -n {threads} -m 25 \
         -t {wildcards.species}/trim/{wildcards.species}_{wildcards.sample}_trimmed \
         -z GZ"""
 
@@ -32,7 +32,7 @@ rule map:
     conda: "envs/MAPPING.yaml"
     threads: 8
     shell:
-        """hisat2 -p 8 -x {params.Genome} -1 {input.T1} -2 {input.T2}| \
+        """hisat2 -p {threads} -x {params.Genome} -1 {input.T1} -2 {input.T2}| \
         samtools view -b -F 0x4 > {output.BAM}"""
 
 rule counts:
