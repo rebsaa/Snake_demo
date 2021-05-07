@@ -1,0 +1,8 @@
+species:
+    - Hippocampus
+sample:
+    - A1
+    - A2
+run:
+    - _1
+    - _2
